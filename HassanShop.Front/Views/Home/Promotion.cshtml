@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Entities.Dao.Product>
+@{
+    ViewBag.Title = "Promotion";
+}
+
+<h2>Promotion</h2>
+
+
+
+<table class="table">
+    <tr>
+        <td>Identifiant</td>
+        <td>Nom du produit</td>
+        <td>Déscription</td>
+        <td>Stock dispo</td>
+        <td>Prix</td>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.ProductId      </td>
+            <td>@product.ProductName    </td>
+            <td>@product.Description    </td>
+            <td>@product.HasStock       </td>
+            <td>@product.Price €       </td>
+           
+        </tr>
+    }
+</table>
