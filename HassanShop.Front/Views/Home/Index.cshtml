@@ -8,73 +8,61 @@
     <div class="row">
         @Html.ActionLink("New Product", "AddProduct", "Home", null, new { @class = "btn btn-Primary" })
     </div>
-    @Html.Partial("~/Views/Home/Partials/_CategorieView.cshtml", Model.CategorieList)
+    <div class=" row">
+        @Html.Partial("~/Views/Home/Partials/_CategorieView.cshtml", Model.CategorieList)
+        @Html.Partial("~/Views/Home/Partials/_DisplayProductList.cshtml", Model)
+        @*<div class=" row">
+            <div class="col-md-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Catégories</div>
 
-    @*<div class=" row">
-        <div class="col-md-2">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Catégories</div>
-
-                <div class="panel-body">
-                    <ul>
-                        @foreach (string categorie in Model.CategorieList)
-                        {
-                            <li>
-                                <a href="/Home/index?categorie=@categorie">@categorie</a>
-                            </li>
-                        }
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>*@
-        <div class="col-md-10">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Top de vente pour cette semaine</div>
-                <div class="panel-body">
-                    <table class="table">
-                        <tr>
-                            <td>Identifiant</td>
-                            <td>Nom du produit</td>
-                            <td>Description</td>
-                            <td>Stock dispo</td>
-                            <td>Prix</td>
-                        </tr>
-                        @foreach (var product in Model.Products)
-                        {
-                            <tr>
-                                <td>@product.ProductId      </td>
-                                <td>@product.ProductName    </td>
-                                <td>@product.Description    </td>
-                                <td>@product.HasStock       </td>
-                                <td>@product.Price €       </td>
-                                <td></td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-                @Html.RenderPagination(Model.CurrentPage, Model.TotalPage)
-                @*
-                    <ul class="pagination">
-                        @for (int i = 0; i < ViewBag.TotalPage; i++)
-                        {
-                            if (i < 3 || i >= ViewBag.TotalPage - 3)
+                    <div class="panel-body">
+                        <ul>
+                            @foreach (string categorie in Model.CategorieList)
                             {
-                                int index = i + 1;
-                                <li> <a href="/Home/Index?page=@i&size=5"> @index</a> </li>
+                                <li>
+                                    <a href="/Home/index?categorie=@categorie">@categorie</a>
+                                </li>
                             }
-                            else
-                            {
-                                <li><a href="#" disabled="true">.</a> </li>
-                            }
-                        }
-                         @ViewBag.CurrentPage / @ViewBag.TotalPage
-                     </ul>
-                *@
-            </div>
-        </div>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>*@
+
     </div>
 </div>
+
+@section Scripts
+{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.categorie').click(function () {
+
+            this.parentElement.classList.add("activehg");
+
+            $.ajax({
+                url: '/Home/DisplayProductList?CategoryName=' + this.innerHTML,
+                timeout: 4000,
+                success: function (data) {
+                   
+                    $('#productsDiv').html( data);
+                }
+
+
+            });
+        });
+
+        
+
+
+    });
+</script>
+}
+
+
+
+
 
 

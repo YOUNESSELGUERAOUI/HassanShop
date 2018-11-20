@@ -8,16 +8,19 @@ namespace HassanShop.Front.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult CategorieView(string CategorieName)
+        public ActionResult DisplayProductList( string CategoryName)
         {
-            ProductViewModel model = new ProductViewModel();
-            model.Products = Products.Where(x => x.Categorie.Equals(CategorieName));
+            int size = 5, page = 0;
+            Products = CategoryName.Equals("Toutes") ? Products
+                : Products.Where(x => x.Categorie.Equals(CategoryName, System.StringComparison.InvariantCultureIgnoreCase));
+            ProductViewModel model = new ProductViewModel
+            {
+                TotalPage = Products.Count() / size,
+                Products = Products.Skip(page * size).Take(size),
+                CurrentCategory = CategoryName
+            };
 
-
-
-            //init work
-
-            return PartialView(model);
+            return PartialView("~/Views/Home/Partials/_DisplayProductList.cshtml", model);
         }
 
         public ActionResult Index(int page = 0, int size = 5, string categorie = "")
@@ -36,7 +39,7 @@ namespace HassanShop.Front.Controllers
                 productViewModel.TotalPage++;
             }
 
-            productViewModel.CategorieList = new List<string> { "imprimante", "pc", "camera", "scanner" };
+            productViewModel.CategorieList = new List<string> { "Toutes", "imprimante", "pc", "camera", "scanner" };
 
 
             return View(productViewModel);

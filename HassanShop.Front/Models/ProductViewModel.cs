@@ -12,6 +12,7 @@ namespace HassanShop.Front.Models
         public IEnumerable<Product> Products { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }
-        public IEnumerable<string> CategorieList{ get; set; }
+        public IEnumerable<string> CategorieList { get; set; }
+        public string CurrentCategory {get; set;}
     }
 }

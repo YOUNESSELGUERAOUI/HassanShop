@@ -1,21 +1,20 @@
 ﻿@model IEnumerable<string>
 
-<div class=" row">
-    <div class="col-md-2">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Catégories</div>
+<div class="col-md-2">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Catégories</div>
 
-            <div class="panel-body">
-                <ul>
-                    @foreach (string categorie in Model)
-                    {
-                        <li>
-                            <a href="/Home/index?categorie=@categorie">@categorie</a>
-                        </li>
-                    }
+        <div class="panel-body">
+            <ul class="nav navbar-nav">
+                @foreach (string categorie in Model)
+                {
+                    <li>
+                        <a class="categorie">@categorie</a>
+                    </li>
+                }
 
-                </ul>
+            </ul>
 
-            </div>
         </div>
     </div>
+</div>
